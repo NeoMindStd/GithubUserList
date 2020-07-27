@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/bloc/detail_bloc.dart';
 import 'package:github_user_list/bloc/home_bloc.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/screen/detail_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,6 +40,17 @@ class HomePage extends StatelessWidget {
                       backgroundImage: NetworkImage(user.avatarUrl),
                     ),
                     title: Text(user.login),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Provider(
+                            create: (BuildContext context) =>
+                                DetailBloc(context, user),
+                            child: DetailPage(
+                              title: "Details",
+                            ),
+                          ),
+                        )),
                   );
                 }),
               );

@@ -5,6 +5,7 @@ import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/util/dialog.dart';
 import 'package:github_user_list/util/http_decoder.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:mutex/mutex.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -45,6 +46,11 @@ class HomeBloc {
     http.Response userResponses = await http.get(
       "https://api.github.com/users?since=$since&per_page=$perPage",
     );
+
+    String statusLog = "since: $since, perPage: $perPage\n"
+        "userResponses = ${userResponses.statusCode}";
+    Logger().i(statusLog);
+
     if (userResponses.statusCode == HttpStatus.forbidden) {
       AppDialog(context).showConfirmDialog(
           "API 사용량 초과: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");

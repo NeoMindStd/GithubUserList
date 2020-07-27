@@ -27,6 +27,9 @@ dependencies:
   # Asynchronous Control
   mutex: ^1.1.0
 
+  # Log
+  logger: ^0.9.2
+
   # Network Communication
   http: ^0.12.2
 
