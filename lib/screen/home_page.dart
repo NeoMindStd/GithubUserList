@@ -4,18 +4,18 @@ import 'package:github_user_list/data/user.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
   final String title;
   final ScrollController _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
+
+  HomePage({Key key, this.title = "HomePage"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final HomeBloc _homeBloc = Provider.of<HomeBloc>(context);
 
     _scrollController.addListener(() => _onScroll(_homeBloc));
-    _homeBloc.getUserListStub(0, 30);
+    _homeBloc.getUserListStub(0, 20);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _homeBloc.getUserListStub(_homeBloc.users.length - 1, 30);
+      _homeBloc.getUserListStub(_homeBloc.users.length - 1, 20);
     }
   }
 }

@@ -1,10 +1,19 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/util/dialog.dart';
+import 'package:github_user_list/util/http_decoder.dart';
+import 'package:http/http.dart' as http;
+import 'package:mutex/mutex.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HomeBloc {
   //////////////////////////////////////////////////
   ///               Fields
   //////////////////////////////////////////////////
+  final BuildContext context;
+  final Mutex usersMutex;
   List<User> users;
 
   //////////////////////////////////////////////////
@@ -20,11 +29,40 @@ class HomeBloc {
   //////////////////////////////////////////////////
   ///               Methods
   //////////////////////////////////////////////////
-  HomeBloc() : users = [];
+  HomeBloc(this.context)
+      : users = [],
+        usersMutex = Mutex();
 
   getUserListStub(int since, int perPage) {
     users.addAll(List.generate(perPage, (index) => User.createDummyUser()));
     _usersController.add(users);
+  }
+
+  getUserList(int since, int perPage) async {
+    if (usersMutex.isLocked) return;
+    usersMutex.acquire();
+
+    http.Response userResponses = await http.get(
+      "https://api.github.com/users?since=$since&per_page=$perPage",
+    );
+    if (userResponses.statusCode == HttpStatus.forbidden) {
+      AppDialog(context).showConfirmDialog(
+          "API 사용량 초과: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+      return;
+    } else if (userResponses.statusCode != HttpStatus.ok) {
+      AppDialog(context)
+          .showConfirmDialog("네트워크 통신 에러 발생: ${userResponses.statusCode}");
+      return;
+    }
+    List<User> newUsers = [];
+    for (var userResponse in HttpDecoder.utf8Response(userResponses)) {
+      newUsers.add(User.fromJson(userResponse));
+    }
+
+    users.addAll(newUsers);
+    _usersController.add(users);
+
+    usersMutex.release();
   }
 
   void dispose() {

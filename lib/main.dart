@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       home: SafeArea(
         child: Provider(
-          create: (_) => HomeBloc(),
+          create: (BuildContext context) => HomeBloc(context),
           child: HomePage(title: '무한 스크롤 화면'),
         ),
       ),

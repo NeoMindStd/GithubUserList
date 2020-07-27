@@ -27,7 +27,7 @@ class User {
         "id": 1,
         "node_id": "MDQ6VXNlcjE=",
         "avatar_url":
-            "https://avatars2.githubusercontent.com/u/38518273?s=460&v=4",
+            "https://avatars1.githubusercontent.com/u/583231?s=460&u=a59fef2a493e2b67dd13754231daf220c82ba84d&v=4",
         "gravatar_id": "",
         "url": "https://api.github.com/users/octocat",
         "html_url": "https://github.com/octocat",
