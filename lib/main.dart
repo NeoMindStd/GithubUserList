@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/bloc/home_bloc.dart';
 import 'package:github_user_list/screen/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Github User List',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(title: 'Flutter Demo Home Page'),
+      home: SafeArea(
+        child: Provider(
+          create: (_) => HomeBloc(),
+          child: HomePage(title: '무한 스크롤 화면'),
+        ),
+      ),
     );
   }
 }
