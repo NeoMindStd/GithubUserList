@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
+import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/data/user.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +14,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final DetailBloc _detailBloc = Provider.of<DetailBloc>(context);
 
-    _detailBloc.getUserDetailInfo();
+    _detailBloc.getUserDetailInfoStub();
 
     return Scaffold(
       appBar: AppBar(
@@ -47,6 +49,43 @@ class DetailPage extends StatelessWidget {
                     Text("Repositories "),
                     Text("${user.repositories.length}"),
                   ],
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children:
+                          List.generate(user.repositories.length, (index) {
+                        Repository repo = user.repositories[index];
+                        return Card(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                repo.name,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(repo.description),
+                              Row(
+                                children: <Widget>[
+                                  Text(repo.language),
+                                  Icon(Icons.star_border),
+                                  Text('${repo.stargazerCount}'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
                 ),
               ],
             );

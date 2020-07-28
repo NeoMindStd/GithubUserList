@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,7 @@ class DetailBloc {
       user.followersUrl,
     );
     if (followerResponses.statusCode == HttpStatus.ok) {
+      user.followers = [];
       for (var followerResponse
           in HttpDecoder.utf8Response(followerResponses)) {
         user.followers.add(User.fromJson(followerResponse));
@@ -47,6 +49,7 @@ class DetailBloc {
       user.followingUrl,
     );
     if (followingResponses.statusCode == HttpStatus.ok) {
+      user.followings = [];
       for (var followingResponse
           in HttpDecoder.utf8Response(followingResponses)) {
         user.followings.add(User.fromJson(followingResponse));
@@ -58,6 +61,7 @@ class DetailBloc {
       user.starredUrl,
     );
     if (starResponses.statusCode == HttpStatus.ok) {
+      user.stars = [];
       for (var starResponse in HttpDecoder.utf8Response(starResponses)) {
         user.stars.add(Repository.fromJson(starResponse));
       }
@@ -68,6 +72,7 @@ class DetailBloc {
       user.reposUrl,
     );
     if (repoResponses.statusCode == HttpStatus.ok) {
+      user.repositories = [];
       for (var repoResponse in HttpDecoder.utf8Response(repoResponses)) {
         user.repositories.add(Repository.fromJson(repoResponse));
       }
@@ -93,6 +98,38 @@ class DetailBloc {
       AppDialog(context)
           .showConfirmDialog("네트워크 통신 에러 발생으로 인해 일부 정보를 불러오지 못했습니다");
     }
+  }
+
+  // TODO Remove Stub
+  getUserDetailInfoStub() async {
+    user.followers = [];
+    for (var followerResponse in jsonDecode(await DefaultAssetBundle.of(context)
+        .loadString("assets/dummy_followers.json"))) {
+      user.followers.add(User.fromJson(followerResponse));
+    }
+    _userController.add(user);
+
+    user.followings = [];
+    for (var followingResponse in jsonDecode(
+        await DefaultAssetBundle.of(context)
+            .loadString("assets/dummy_following.json"))) {
+      user.followings.add(User.fromJson(followingResponse));
+    }
+    _userController.add(user);
+
+    user.stars = [];
+    for (var starResponse in jsonDecode(await DefaultAssetBundle.of(context)
+        .loadString("assets/dummy_starred.json"))) {
+      user.stars.add(Repository.fromJson(starResponse));
+    }
+    _userController.add(user);
+
+    user.repositories = [];
+    for (var repoResponse in jsonDecode(await DefaultAssetBundle.of(context)
+        .loadString("assets/dummy_repos.json"))) {
+      user.repositories.add(Repository.fromJson(repoResponse));
+    }
+    _userController.add(user);
   }
 
   void dispose() {
