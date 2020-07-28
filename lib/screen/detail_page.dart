@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
-import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/screen/detail/profile.dart';
+import 'package:github_user_list/screen/detail/repo_list.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
@@ -27,64 +27,23 @@ class DetailPage extends StatelessWidget {
             User user = snapshot.data;
             return Column(
               children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(user.avatarUrl),
-                  ),
-                  title: Text(user.login),
+                Profile(
+                  user,
+                  padding: EdgeInsets.all(20),
                 ),
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.people_outline),
-                    Text("${user.followers.length} followers"),
-                    Text(" · "),
-                    Text("${user.followings.length} following"),
-                    Text(" · "),
-                    Icon(Icons.star_border),
-                    Text("${user.stars.length}"),
-                  ],
+                Divider(
+                  height: 2,
+                  thickness: 0.5,
+                  color: Colors.black54,
                 ),
-                Row(
-                  children: <Widget>[
-                    Text("Repositories "),
-                    Text("${user.repositories.length}"),
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children:
-                          List.generate(user.repositories.length, (index) {
-                        Repository repo = user.repositories[index];
-                        return Card(
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                repo.name,
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(repo.description),
-                              Row(
-                                children: <Widget>[
-                                  Text(repo.language),
-                                  Icon(Icons.star_border),
-                                  Text('${repo.stargazerCount}'),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                    ),
+                RepoList(
+                  user.repositories,
+                  titlePadding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 15,
                   ),
                 ),
               ],

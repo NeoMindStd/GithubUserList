@@ -7,6 +7,7 @@ class User {
   int id;
   String login;
   String avatarUrl;
+  String htmlUrl;
   String url;
   String followersUrl;
   String followingUrl;
@@ -23,6 +24,7 @@ class User {
     this.login = "",
     this.avatarUrl = "",
     this.url = "",
+    this.htmlUrl,
     this.followersUrl = "",
     this.followingUrl = "",
     this.starredUrl = "",
@@ -37,6 +39,7 @@ class User {
         login: json['login'] as String ?? "",
         avatarUrl: json['avatar_url'] as String ?? "",
         url: json['url'] as String ?? "",
+        htmlUrl: json['html_url'] as String ?? "",
         followersUrl: json['followers_url'] as String ?? "",
         followingUrl: json['following_url'] as String ?? "",
         starredUrl: json['starred_url'] as String ?? "",
@@ -54,6 +57,7 @@ class User {
         'avatar_url':
             'https://avatars1.githubusercontent.com/u/583231?s=460&u=a59fef2a493e2b67dd13754231daf220c82ba84d&v=4',
         'url': 'https://api.github.com/users/octocat',
+        'html_url': 'https://github.com/octocat',
         'followers_url': 'https://api.github.com/users/octocat/followers',
         'following_url': 'https://api.github.com/users/octocat/following',
         'starred_url': 'https://api.github.com/users/octocat/starred',

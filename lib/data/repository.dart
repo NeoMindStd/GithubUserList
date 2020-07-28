@@ -5,7 +5,7 @@ import 'package:github_user_list/data/user.dart';
 
 class Repository {
   int id;
-  int stargazerCount;
+  int stargazersCount;
   int watchersCount;
   int forks;
   int watchers;
@@ -23,7 +23,7 @@ class Repository {
 
   Repository({
     this.id = Nos.Global.NOT_ASSIGNED_ID,
-    this.stargazerCount = 0,
+    this.stargazersCount = 0,
     this.watchersCount = 0,
     this.forks = 0,
     this.watchers = 0,
@@ -42,7 +42,7 @@ class Repository {
 
   factory Repository.fromJson(Map<String, dynamic> json) => Repository(
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
-        stargazerCount: json['stargazer_count'] as int ?? 0,
+        stargazersCount: json['stargazers_count'] as int ?? 0,
         watchersCount: json['watchers_count'] as int ?? 0,
         forks: json['forks'] as int ?? 0,
         watchers: json['watchers'] as int ?? 0,
