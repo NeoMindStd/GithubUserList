@@ -26,13 +26,13 @@ class User {
     this.url = "",
     this.htmlUrl,
     this.followersUrl = "",
-    this.followingUrl = "",
-    this.starredUrl = "",
     this.reposUrl = "",
   })  : followers = [],
         followings = [],
         stars = [],
-        repositories = [];
+        repositories = [],
+        followingUrl = "https://api.github.com/users/$login/following",
+        starredUrl = "https://api.github.com/users/$login/starred";
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
@@ -41,8 +41,6 @@ class User {
         url: json['url'] as String ?? "",
         htmlUrl: json['html_url'] as String ?? "",
         followersUrl: json['followers_url'] as String ?? "",
-        followingUrl: json['following_url'] as String ?? "",
-        starredUrl: json['starred_url'] as String ?? "",
         reposUrl: json['repos_url'] as String ?? "",
       );
 
@@ -59,8 +57,6 @@ class User {
         'url': 'https://api.github.com/users/octocat',
         'html_url': 'https://github.com/octocat',
         'followers_url': 'https://api.github.com/users/octocat/followers',
-        'following_url': 'https://api.github.com/users/octocat/following',
-        'starred_url': 'https://api.github.com/users/octocat/starred',
         'repos_url': 'https://api.github.com/users/octocat/repos',
       });
 

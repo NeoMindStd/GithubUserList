@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     final HomeBloc _homeBloc = Provider.of<HomeBloc>(context);
 
     _scrollController.addListener(() => _onScroll(_homeBloc));
-    _homeBloc.getUserListStub(0, 20);
+    _homeBloc.getUserList(0, 20);
 
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _homeBloc.getUserListStub(_homeBloc.users.length - 1, 20);
+      _homeBloc.getUserList(_homeBloc.users.last.id, 20);
     }
   }
 }

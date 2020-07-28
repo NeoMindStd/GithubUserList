@@ -14,7 +14,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final DetailBloc _detailBloc = Provider.of<DetailBloc>(context);
 
-    _detailBloc.getUserDetailInfoStub();
+    _detailBloc.getUserDetailInfo();
 
     return Scaffold(
       appBar: AppBar(

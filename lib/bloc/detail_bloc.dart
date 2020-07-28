@@ -95,6 +95,11 @@ class DetailBloc {
         followingResponses.statusCode != HttpStatus.ok ||
         starResponses.statusCode != HttpStatus.ok ||
         repoResponses.statusCode != HttpStatus.ok) {
+      String logString = 'followerResponses: ${followerResponses.body}\n'
+          'followingResponses: ${followingResponses.body}\n'
+          'starResponses: ${starResponses.body}\n'
+          'repoResponses: ${repoResponses.body}\n';
+      Logger().i(logString);
       AppDialog(context)
           .showConfirmDialog("네트워크 통신 에러 발생으로 인해 일부 정보를 불러오지 못했습니다");
     }

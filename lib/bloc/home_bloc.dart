@@ -56,6 +56,8 @@ class HomeBloc {
           "API 사용량 초과: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
       return;
     } else if (userResponses.statusCode != HttpStatus.ok) {
+      String logString = 'userResponses: ${userResponses.body}';
+      Logger().i(logString);
       AppDialog(context)
           .showConfirmDialog("네트워크 통신 에러 발생: ${userResponses.statusCode}");
       return;
