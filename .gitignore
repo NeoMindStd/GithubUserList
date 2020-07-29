@@ -44,3 +44,5 @@ app.*.map.json
 
 # Secrets
 assets/secrets/
+android/key.properties
+**/*.jks
