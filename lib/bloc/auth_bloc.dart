@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:github_user_list/util/data_manager.dart';
 import 'package:rxdart/rxdart.dart';
 

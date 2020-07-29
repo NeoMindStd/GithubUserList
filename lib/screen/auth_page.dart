@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/auth_bloc.dart';
-import 'package:github_user_list/screen/auth/login_card.dart';
-import 'package:github_user_list/screen/auth/lower_half.dart';
-import 'package:github_user_list/screen/auth/upper_half.dart';
+import 'package:github_user_list/screen/widget/auth/login_card.dart';
+import 'package:github_user_list/screen/widget/auth/lower_half.dart';
+import 'package:github_user_list/screen/widget/auth/upper_half.dart';
 import 'package:provider/provider.dart';
 
 class AuthPage extends StatelessWidget {

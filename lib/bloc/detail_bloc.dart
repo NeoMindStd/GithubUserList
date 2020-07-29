@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/data/user.dart';

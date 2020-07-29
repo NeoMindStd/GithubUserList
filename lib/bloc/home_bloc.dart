@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/util/data_manager.dart';
@@ -35,6 +35,14 @@ class HomeBloc {
   HomeBloc(this.context)
       : users = [],
         usersMutex = Mutex();
+
+  onScroll(ScrollController scrollController, double scrollThreshold) {
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final currentScroll = scrollController.position.pixels;
+    if (maxScroll - currentScroll <= scrollThreshold) {
+      getUserList(users.last.id, 20);
+    }
+  }
 
   getUserList(int since, int perPage) async {
     if (usersMutex.isLocked) return;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/auth_bloc.dart';
 import 'package:github_user_list/constant/strings.dart' as Strings;
-import 'package:github_user_list/screen/auth/center_card.dart';
+import 'package:github_user_list/screen/widget/auth/center_card.dart';
 
 class LoginCard extends StatelessWidget {
   final AuthBloc _authBloc;
