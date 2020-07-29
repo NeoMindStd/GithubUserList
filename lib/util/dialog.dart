@@ -17,14 +17,51 @@ class AppDialog {
         builder: (BuildContext context) => WillPopScope(
           onWillPop: () async => _onWillPop(onConfirm),
           child: AlertDialog(
-            title: Text("안내"),
+            title: Text("Info"),
             content: Text(message),
             actions: <Widget>[
               MaterialButton(
-                child: Text("확인"),
+                child: Text(
+                  "Confirm",
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                   if (onConfirm != null) onConfirm();
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Future showYesNoDialog(String message, {void onConfirm(), void onCancel()}) =>
+      showDialog(
+        context: _context,
+        builder: (BuildContext context) => WillPopScope(
+          onWillPop: () async => _onWillPop(onCancel),
+          child: AlertDialog(
+            title: Text("Info"),
+            content: Text(message),
+            actions: <Widget>[
+              MaterialButton(
+                child: Text(
+                  "Yes",
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onConfirm != null) onConfirm();
+                },
+              ),
+              MaterialButton(
+                child: Text(
+                  "No",
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onCancel != null) onCancel();
                 },
               ),
             ],

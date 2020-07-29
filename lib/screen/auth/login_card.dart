@@ -16,7 +16,6 @@ class LoginCard extends StatelessWidget {
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
         labelText: "username",
-        hasFloatingPlaceholder: true,
         suffixIcon: IconButton(
           icon: Icon(Icons.clear),
           onPressed: usernameController.clear,
@@ -30,7 +29,6 @@ class LoginCard extends StatelessWidget {
       builder: (context, snapshot) => TextFormField(
         decoration: InputDecoration(
           labelText: "password",
-          hasFloatingPlaceholder: true,
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
             mainAxisSize: MainAxisSize.min, // added line
@@ -62,16 +60,13 @@ class LoginCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "로그인",
+                  "Input",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
               ),
               accountField,
               SizedBox(
@@ -89,10 +84,10 @@ class LoginCard extends StatelessWidget {
                   ),
                   FlatButton(
                     child: Text(
-                      "로그인",
+                      "Login",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    color: Colors.blue,
+                    color: Theme.of(context).accentColor,
                     textColor: Colors.white,
                     padding: EdgeInsets.only(
                         left: 38, right: 38, top: 15, bottom: 15),

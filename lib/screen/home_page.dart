@@ -36,13 +36,13 @@ class HomePage extends StatelessWidget {
                         create: (BuildContext context) =>
                             DetailBloc(context, DataManager().loginUser),
                         child: DetailPage(
-                          title: '내 프로필',
+                          title: 'My Profile',
                           isMyProfile: true,
                         ),
                       )
                     : Provider(
                         create: (BuildContext context) => AuthBloc(context),
-                        child: AuthPage(title: '프로필'),
+                        child: AuthPage(title: 'Github Authorization'),
                       ),
               ),
             ),

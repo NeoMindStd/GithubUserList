@@ -47,7 +47,7 @@ class RepoList extends StatelessWidget {
                                 child: Text(
                                   repo.name,
                                   style: TextStyle(
-                                    color: Colors.blueAccent,
+                                    color: Colors.teal,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),

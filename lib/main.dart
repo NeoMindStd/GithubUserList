@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Github User List',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SafeArea(
         child: Provider(
           create: (BuildContext context) => HomeBloc(context),
-          child: HomePage(title: '무한 스크롤 화면'),
+          child: HomePage(title: 'Github User List'),
         ),
       ),
     );

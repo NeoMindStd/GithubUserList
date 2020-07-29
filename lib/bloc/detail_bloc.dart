@@ -91,7 +91,8 @@ class DetailBloc {
         followingResponses.statusCode == HttpStatus.forbidden ||
         starResponses.statusCode == HttpStatus.forbidden ||
         repoResponses.statusCode == HttpStatus.forbidden) {
-      AppDialog(context).showConfirmDialog("API 사용량 초과로 인해 일부 정보를 불러오지 못했습니다");
+      AppDialog(context).showConfirmDialog(
+          "Failed to load some information because API rate limit.");
     } else if (followerResponses.statusCode != HttpStatus.ok ||
         followingResponses.statusCode != HttpStatus.ok ||
         starResponses.statusCode != HttpStatus.ok ||
@@ -101,8 +102,8 @@ class DetailBloc {
           'starResponses: ${starResponses.body}\n'
           'repoResponses: ${repoResponses.body}\n';
       Logger().i(logString);
-      AppDialog(context)
-          .showConfirmDialog("네트워크 통신 에러 발생으로 인해 일부 정보를 불러오지 못했습니다");
+      AppDialog(context).showConfirmDialog(
+          "Failed to load some information because a network communication error occurred.");
     }
   }
 

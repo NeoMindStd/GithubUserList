@@ -22,6 +22,7 @@ class WebViewPage extends StatelessWidget {
           src: url,
           isHtml: false, // Use Html syntax
           isMarkdown: false, // Use markdown syntax
+          onLoaded: () {},
           // width: 100,
           // height: 100,
         ),

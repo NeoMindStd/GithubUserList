@@ -4,6 +4,7 @@ import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/detail/profile.dart';
 import 'package:github_user_list/screen/detail/repo_list.dart';
 import 'package:github_user_list/util/data_manager.dart';
+import 'package:github_user_list/util/dialog.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
@@ -27,13 +28,18 @@ class DetailPage extends StatelessWidget {
                 ? [
                     MaterialButton(
                       child: Text(
-                        "로그아웃",
-                        style: TextStyle(color: Colors.white),
+                        "Logout",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
-                      onPressed: () async {
+                      onPressed: () => AppDialog(context)
+                          .showYesNoDialog('Are you sure you want to log out?',
+                              onConfirm: () async {
                         await DataManager().logout();
                         Navigator.pop(context);
-                      },
+                      }),
                     )
                   ]
                 : []),

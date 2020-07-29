@@ -54,13 +54,13 @@ class HomeBloc {
 
     if (userResponses.statusCode == HttpStatus.forbidden) {
       AppDialog(context).showConfirmDialog(
-          "API 사용량 초과: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+          "API rate limit exceeded: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
       return;
     } else if (userResponses.statusCode != HttpStatus.ok) {
       String logString = 'userResponses: ${userResponses.body}';
       Logger().i(logString);
-      AppDialog(context)
-          .showConfirmDialog("네트워크 통신 에러 발생: ${userResponses.statusCode}");
+      AppDialog(context).showConfirmDialog(
+          "Network communication error occurred: ${userResponses.statusCode}");
       return;
     }
     List<User> newUsers = [];
