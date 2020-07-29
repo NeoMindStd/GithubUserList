@@ -1,4 +1,4 @@
-package com.neomind.githubuserlist
+package com.neomind.github_user_list
 
 import io.flutter.embedding.android.FlutterActivity
 
