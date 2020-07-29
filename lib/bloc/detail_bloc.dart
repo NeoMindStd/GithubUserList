@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -105,38 +104,6 @@ class DetailBloc {
       AppDialog(context).showConfirmDialog(
           "Failed to load some information because a network communication error occurred.");
     }
-  }
-
-  // TODO Remove Stub
-  getUserDetailInfoStub() async {
-    user.followers = [];
-    for (var followerResponse in jsonDecode(await DefaultAssetBundle.of(context)
-        .loadString("assets/dummy_followers.json"))) {
-      user.followers.add(User.fromJson(followerResponse));
-    }
-    _userController.add(user);
-
-    user.followings = [];
-    for (var followingResponse in jsonDecode(
-        await DefaultAssetBundle.of(context)
-            .loadString("assets/dummy_following.json"))) {
-      user.followings.add(User.fromJson(followingResponse));
-    }
-    _userController.add(user);
-
-    user.stars = [];
-    for (var starResponse in jsonDecode(await DefaultAssetBundle.of(context)
-        .loadString("assets/dummy_starred.json"))) {
-      user.stars.add(Repository.fromJson(starResponse));
-    }
-    _userController.add(user);
-
-    user.repositories = [];
-    for (var repoResponse in jsonDecode(await DefaultAssetBundle.of(context)
-        .loadString("assets/dummy_repos.json"))) {
-      user.repositories.add(Repository.fromJson(repoResponse));
-    }
-    _userController.add(user);
   }
 
   void dispose() {

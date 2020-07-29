@@ -35,11 +35,6 @@ class HomeBloc {
       : users = [],
         usersMutex = Mutex();
 
-  getUserListStub(int since, int perPage) {
-    users.addAll(List.generate(perPage, (index) => User.createDummyUser()));
-    _usersController.add(users);
-  }
-
   getUserList(int since, int perPage) async {
     if (usersMutex.isLocked) return;
     usersMutex.acquire();

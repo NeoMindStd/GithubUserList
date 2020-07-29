@@ -47,19 +47,6 @@ class User {
   factory User.fromJsonString(String string) =>
       User.fromJson(json.decode(string));
 
-  // TODO Remove Stub
-  static int dummyCount = 0;
-  factory User.createDummyUser() => User.fromJson({
-        'login': 'octocat${++dummyCount}',
-        'id': dummyCount,
-        'avatar_url':
-            'https://avatars1.githubusercontent.com/u/583231?s=460&u=a59fef2a493e2b67dd13754231daf220c82ba84d&v=4',
-        'url': 'https://api.github.com/users/octocat',
-        'html_url': 'https://github.com/octocat',
-        'followers_url': 'https://api.github.com/users/octocat/followers',
-        'repos_url': 'https://api.github.com/users/octocat/repos',
-      });
-
   @override
   String toString() => 'User - $login';
 }

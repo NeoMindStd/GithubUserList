@@ -63,27 +63,6 @@ class Repository {
   factory Repository.fromJsonString(String string) =>
       Repository.fromJson(json.decode(string));
 
-  // TODO Remove Stub
-  static int dummyCount = 0;
-  factory Repository.createDummyUser() => Repository.fromJson({
-        'id': ++dummyCount,
-        'name': 'boysenberry-repo-$dummyCount',
-        'full_name': 'octocat/boysenberry-repo-$dummyCount',
-        'private': false,
-        'owner': {},
-        'html_url': 'https://github.com/octocat/boysenberry-repo-1',
-        'description': 'Testing',
-        'created_at': '2018-05-10T17:51:29Z',
-        'updated_at': '2020-06-27T05:52:40Z',
-        'pushed_at': '2018-05-10T17:52:17Z',
-        'stargazers_count': 6,
-        'watchers_count': 6,
-        'language': null,
-        'license': null,
-        'forks': 5,
-        'watchers': 6,
-      });
-
   @override
   String toString() => 'Repository - $fullName';
 }
