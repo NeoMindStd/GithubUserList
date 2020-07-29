@@ -32,6 +32,7 @@ dependencies:
 
   # Network Communication
   http: ^0.12.2
+  http_auth: ^0.3.0
 
   # State Management
   provider: ^4.3.1

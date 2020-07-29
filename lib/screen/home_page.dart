@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/bloc/auth_bloc.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
 import 'package:github_user_list/bloc/home_bloc.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/screen/auth_page.dart';
 import 'package:github_user_list/screen/detail_page.dart';
+import 'package:github_user_list/util/data_manager.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,6 +25,29 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DataManager().isLoggedIn
+                    ? Provider(
+                        create: (BuildContext context) =>
+                            DetailBloc(context, DataManager().loginUser),
+                        child: DetailPage(
+                          title: '내 프로필',
+                          isMyProfile: true,
+                        ),
+                      )
+                    : Provider(
+                        create: (BuildContext context) => AuthBloc(context),
+                        child: AuthPage(title: '프로필'),
+                      ),
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         controller: _scrollController,

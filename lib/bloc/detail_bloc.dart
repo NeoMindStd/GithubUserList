@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/util/data_manager.dart';
 import 'package:github_user_list/util/dialog.dart';
 import 'package:github_user_list/util/http_decoder.dart';
 import 'package:http/http.dart' as http;
@@ -33,9 +34,9 @@ class DetailBloc {
   DetailBloc(this.context, this.user);
 
   getUserDetailInfo() async {
-    http.Response followerResponses = await http.get(
-      user.followersUrl,
-    );
+    http.Response followerResponses = await DataManager().httpClient.get(
+          user.followersUrl,
+        );
     if (followerResponses.statusCode == HttpStatus.ok) {
       user.followers = [];
       for (var followerResponse
@@ -45,9 +46,9 @@ class DetailBloc {
       _userController.add(user);
     }
 
-    http.Response followingResponses = await http.get(
-      user.followingUrl,
-    );
+    http.Response followingResponses = await DataManager().httpClient.get(
+          user.followingUrl,
+        );
     if (followingResponses.statusCode == HttpStatus.ok) {
       user.followings = [];
       for (var followingResponse
@@ -57,9 +58,9 @@ class DetailBloc {
       _userController.add(user);
     }
 
-    http.Response starResponses = await http.get(
-      user.starredUrl,
-    );
+    http.Response starResponses = await DataManager().httpClient.get(
+          user.starredUrl,
+        );
     if (starResponses.statusCode == HttpStatus.ok) {
       user.stars = [];
       for (var starResponse in HttpDecoder.utf8Response(starResponses)) {
@@ -68,9 +69,9 @@ class DetailBloc {
       _userController.add(user);
     }
 
-    http.Response repoResponses = await http.get(
-      user.reposUrl,
-    );
+    http.Response repoResponses = await DataManager().httpClient.get(
+          user.reposUrl,
+        );
     if (repoResponses.statusCode == HttpStatus.ok) {
       user.repositories = [];
       for (var repoResponse in HttpDecoder.utf8Response(repoResponses)) {

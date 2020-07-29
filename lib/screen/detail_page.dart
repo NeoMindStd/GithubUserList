@@ -3,12 +3,15 @@ import 'package:github_user_list/bloc/detail_bloc.dart';
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/detail/profile.dart';
 import 'package:github_user_list/screen/detail/repo_list.dart';
+import 'package:github_user_list/util/data_manager.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   final String title;
+  final bool isMyProfile;
 
-  DetailPage({Key key, this.title = "DetailPage"}) : super(key: key);
+  DetailPage({Key key, this.title = "DetailPage", this.isMyProfile = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,21 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[] +
+            (isMyProfile
+                ? [
+                    MaterialButton(
+                      child: Text(
+                        "로그아웃",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        await DataManager().logout();
+                        Navigator.pop(context);
+                      },
+                    )
+                  ]
+                : []),
       ),
       body: StreamBuilder<User>(
           initialData: _detailBloc.user,

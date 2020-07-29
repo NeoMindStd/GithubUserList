@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:github_user_list/data/user.dart';
+import 'package:github_user_list/util/data_manager.dart';
 import 'package:github_user_list/util/dialog.dart';
 import 'package:github_user_list/util/http_decoder.dart';
 import 'package:http/http.dart' as http;
@@ -43,9 +44,9 @@ class HomeBloc {
     if (usersMutex.isLocked) return;
     usersMutex.acquire();
 
-    http.Response userResponses = await http.get(
-      "https://api.github.com/users?since=$since&per_page=$perPage",
-    );
+    http.Response userResponses = await DataManager().httpClient.get(
+          "https://api.github.com/users?since=$since&per_page=$perPage",
+        );
 
     String statusLog = "since: $since, perPage: $perPage\n"
         "userResponses = ${userResponses.statusCode}";
