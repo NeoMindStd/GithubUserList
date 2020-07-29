@@ -39,6 +39,11 @@ class HomePage extends StatelessWidget {
                     : Provider(
                         create: (BuildContext context) => AuthBloc(context),
                         child: AuthPage(title: Strings.AuthPage.PAGE_TITLE),
+                        dispose: (context, _authBloc) async {
+                          if (_homeBloc.users.isEmpty) {
+                            await _homeBloc.getUserList(0, 20);
+                          }
+                        },
                       ),
               ),
             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/util/data_manager.dart';
+import 'package:github_user_list/util/dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AuthBloc {
@@ -32,8 +34,12 @@ class AuthBloc {
   }
 
   void login(BuildContext context, {String username, String password}) async {
-    await DataManager().login(username: username, password: password);
-    Navigator.pop(context);
+    if (await DataManager().login(username: username, password: password)) {
+      Navigator.pop(context);
+    } else {
+      AppDialog(context)
+          .showConfirmDialog(Strings.AuthPage.DIALOG_LOGIN_FAILED);
+    }
   }
 
   void dispose() {

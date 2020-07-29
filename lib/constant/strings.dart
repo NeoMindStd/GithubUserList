@@ -53,6 +53,8 @@ class DetailPage {
 class AuthPage {
   static const PAGE_TITLE = 'Github Authorization';
   static const CARD_TITLE = 'Input';
+  static const DIALOG_LOGIN_FAILED =
+      "Login failed. Please check the username and password";
 }
 
 class HomePage {}

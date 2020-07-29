@@ -48,34 +48,36 @@ class HomeBloc {
     if (usersMutex.isLocked) return;
     usersMutex.acquire();
 
-    http.Response userResponses = await DataManager().httpClient.get(
-          Strings.HTTP.apiGithubUsers(since, perPage),
-        );
+    try {
+      http.Response userResponses = await DataManager().httpClient.get(
+            Strings.HTTP.apiGithubUsers(since, perPage),
+          );
 
-    String statusLog = "since: $since, perPage: $perPage\n"
-        "userResponses = ${userResponses.statusCode}";
-    Logger().i(statusLog);
+      String statusLog = "since: $since, perPage: $perPage\n"
+          "userResponses = ${userResponses.statusCode}";
+      Logger().i(statusLog);
 
-    if (userResponses.statusCode == HttpStatus.forbidden) {
-      AppDialog(context).showConfirmDialog(
-          "${Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_SHORT}: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
-      return;
-    } else if (userResponses.statusCode != HttpStatus.ok) {
-      String logString = 'userResponses: ${userResponses.body}';
-      Logger().i(logString);
-      AppDialog(context).showConfirmDialog(
-          "${Strings.HTTP.DIALOG_ERROR_NETWORK_SHORT}: ${userResponses.statusCode}");
-      return;
+      if (userResponses.statusCode == HttpStatus.forbidden) {
+        AppDialog(context).showConfirmDialog(
+            "${Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_SHORT}: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+        return;
+      } else if (userResponses.statusCode != HttpStatus.ok) {
+        String logString = 'userResponses: ${userResponses.body}';
+        Logger().i(logString);
+        AppDialog(context).showConfirmDialog(
+            "${Strings.HTTP.DIALOG_ERROR_NETWORK_SHORT}: ${userResponses.statusCode}");
+        return;
+      }
+      List<User> newUsers = [];
+      for (var userResponse in HttpDecoder.utf8Response(userResponses)) {
+        newUsers.add(User.fromJson(userResponse));
+      }
+
+      users.addAll(newUsers);
+      _usersController.add(users);
+    } finally {
+      usersMutex.release();
     }
-    List<User> newUsers = [];
-    for (var userResponse in HttpDecoder.utf8Response(userResponses)) {
-      newUsers.add(User.fromJson(userResponse));
-    }
-
-    users.addAll(newUsers);
-    _usersController.add(users);
-
-    usersMutex.release();
   }
 
   void dispose() {
