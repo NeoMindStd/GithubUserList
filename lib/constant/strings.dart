@@ -10,6 +10,9 @@ class Global {
   static const LOGOUT = 'Logout';
   static const USERNAME = 'Username';
   static const PASSWORD = 'Password';
+
+  static const ASSETS_ROOT = "assets";
+  static const ASSETS_GITHUB_OAUTH = "$ASSETS_ROOT/secrets/github_oauth.json";
 }
 
 class HTTP {

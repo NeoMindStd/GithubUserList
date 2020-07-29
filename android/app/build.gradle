@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId "com.neomind.github_user_list"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
