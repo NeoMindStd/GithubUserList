@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         child: Provider(
           create: (BuildContext context) => HomeBloc(context),
           child: HomePage(title: 'Github User List'),
+          dispose: (context, HomeBloc _homeBloc) => _homeBloc.dispose(),
         ),
       ),
     );

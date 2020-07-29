@@ -45,6 +45,8 @@ class UserList extends StatelessWidget {
                           child: DetailPage(
                             title: Strings.DetailPage.PAGE_TITLE_NORMAL,
                           ),
+                          dispose: (context, DetailBloc _detailBloc) =>
+                              _detailBloc.dispose(),
                         ),
                       )),
                 );
