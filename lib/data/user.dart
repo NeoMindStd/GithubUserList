@@ -15,9 +15,9 @@ class User {
   String starredUrl;
   String reposUrl;
 
-  List<User> followers;
-  List<User> followings;
-  List<Repository> stars;
+  int followersCount;
+  int followingCount;
+  int starCount;
   List<Repository> repositories;
 
   User({
@@ -28,9 +28,9 @@ class User {
     this.htmlUrl,
     this.followersUrl = "",
     this.reposUrl = "",
-  })  : followers = [],
-        followings = [],
-        stars = [],
+  })  : followersCount = 0,
+        followingCount = 0,
+        starCount = 0,
         repositories = [],
         followingUrl = Strings.HTTP.apiGithubFollowing(login),
         starredUrl = Strings.HTTP.apiGithubStarred(login);

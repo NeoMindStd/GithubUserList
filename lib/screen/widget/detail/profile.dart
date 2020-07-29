@@ -40,7 +40,7 @@ class Profile extends StatelessWidget {
                           padding: EdgeInsets.only(left: 2),
                         ),
                         Text(
-                            "${_user.followers.length} ${Strings.DetailPage.FOLLOWERS}"),
+                            "${_user.followersCount} ${Strings.DetailPage.FOLLOWERS}"),
                       ],
                     ),
                     onTap: () => Navigator.push(
@@ -53,7 +53,7 @@ class Profile extends StatelessWidget {
                   Text(" · "),
                   InkWell(
                     child: Text(
-                        "${_user.followings.length} ${Strings.DetailPage.FOLLOWING}"),
+                        "${_user.followingCount} ${Strings.DetailPage.FOLLOWING}"),
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -69,7 +69,7 @@ class Profile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 2),
                         ),
-                        Text("${_user.stars.length}"),
+                        Text("${_user.starCount}"),
                       ],
                     ),
                     onTap: () => Navigator.push(
