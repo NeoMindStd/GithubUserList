@@ -36,14 +36,6 @@ class HomeBloc {
       : users = [],
         usersMutex = Mutex();
 
-  onScroll(ScrollController scrollController, double scrollThreshold) async {
-    final maxScroll = scrollController.position.maxScrollExtent;
-    final currentScroll = scrollController.position.pixels;
-    if (maxScroll - currentScroll <= scrollThreshold) {
-      await getUserList(users.last.id, 20);
-    }
-  }
-
   getUserList(int since, int perPage) async {
     if (usersMutex.isLocked) return;
     usersMutex.acquire();

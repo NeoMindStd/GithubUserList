@@ -5,33 +5,32 @@ import 'package:github_user_list/bloc/home_bloc.dart';
 import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/detail_page.dart';
+import 'package:github_user_list/screen/widget/home/centered_circular_indicator.dart';
 import 'package:provider/provider.dart';
 
 class UserList extends StatelessWidget {
-  final ScrollController _scrollController = ScrollController();
-  final double scrollThreshold;
   final HomeBloc _homeBloc;
 
-  UserList(this._homeBloc, {this.scrollThreshold = 300.0});
+  UserList(this._homeBloc);
 
   @override
   Widget build(BuildContext context) {
-    _scrollController.addListener(
-        () => _homeBloc.onScroll(_scrollController, scrollThreshold));
-    _homeBloc.getUserList(0, 20);
-
-    return SingleChildScrollView(
-      controller: _scrollController,
-      scrollDirection: Axis.vertical,
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: StreamBuilder<List<User>>(
-          initialData: _homeBloc.users,
-          stream: _homeBloc.usersStream,
-          builder: (context, snapshot) {
-            List<User> users = snapshot.data;
-            return Column(
-              mainAxisSize: MainAxisSize.max,
-              children: List.generate(users.length, (index) {
+    return StreamBuilder<List<User>>(
+        initialData: _homeBloc.users,
+        stream: _homeBloc.usersStream,
+        builder: (context, snapshot) {
+          List<User> users = snapshot.data;
+          if (users.isEmpty) {
+            _homeBloc.getUserList(0, 20);
+            return CenteredCircularIndicator();
+          } else {
+            return ListView.builder(
+              itemCount: users.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index >= users.length) {
+                  _homeBloc.getUserList(users.last.id, 20);
+                  return CenteredCircularIndicator();
+                }
                 User user = users[index];
                 return ListTile(
                   leading: CircleAvatar(
@@ -55,9 +54,9 @@ class UserList extends StatelessWidget {
                         ),
                       )),
                 );
-              }),
+              },
             );
-          }),
-    );
+          }
+        });
   }
 }
