@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/screen/web_view_page.dart';
 
@@ -20,7 +21,7 @@ class RepoList extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "Repositories ${_repos.length}",
+                    "${Strings.DetailPage.REPOSITORIES} ${_repos.length}",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ],

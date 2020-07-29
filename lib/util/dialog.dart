@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 
 class AppDialog {
   static final AppDialog _instance = AppDialog._();
@@ -17,12 +18,12 @@ class AppDialog {
         builder: (BuildContext context) => WillPopScope(
           onWillPop: () async => _onWillPop(onConfirm),
           child: AlertDialog(
-            title: Text("Info"),
+            title: Text(Strings.Global.INFO),
             content: Text(message),
             actions: <Widget>[
               MaterialButton(
                 child: Text(
-                  "Confirm",
+                  Strings.Global.CONFIRM,
                   style: TextStyle(color: Theme.of(context).accentColor),
                 ),
                 onPressed: () {
@@ -41,12 +42,12 @@ class AppDialog {
         builder: (BuildContext context) => WillPopScope(
           onWillPop: () async => _onWillPop(onCancel),
           child: AlertDialog(
-            title: Text("Info"),
+            title: Text(Strings.Global.INFO),
             content: Text(message),
             actions: <Widget>[
               MaterialButton(
                 child: Text(
-                  "Yes",
+                  Strings.Global.YES,
                   style: TextStyle(color: Theme.of(context).accentColor),
                 ),
                 onPressed: () {
@@ -56,7 +57,7 @@ class AppDialog {
               ),
               MaterialButton(
                 child: Text(
-                  "No",
+                  Strings.Global.NO,
                   style: TextStyle(color: Theme.of(context).accentColor),
                 ),
                 onPressed: () {

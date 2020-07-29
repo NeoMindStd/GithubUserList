@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/repository.dart';
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/util/data_manager.dart';
@@ -90,8 +91,8 @@ class DetailBloc {
         followingResponses.statusCode == HttpStatus.forbidden ||
         starResponses.statusCode == HttpStatus.forbidden ||
         repoResponses.statusCode == HttpStatus.forbidden) {
-      AppDialog(context).showConfirmDialog(
-          "Failed to load some information because API rate limit.");
+      AppDialog(context)
+          .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_LONG);
     } else if (followerResponses.statusCode != HttpStatus.ok ||
         followingResponses.statusCode != HttpStatus.ok ||
         starResponses.statusCode != HttpStatus.ok ||
@@ -101,8 +102,8 @@ class DetailBloc {
           'starResponses: ${starResponses.body}\n'
           'repoResponses: ${repoResponses.body}\n';
       Logger().i(logString);
-      AppDialog(context).showConfirmDialog(
-          "Failed to load some information because a network communication error occurred.");
+      AppDialog(context)
+          .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_NETWORK_LONG);
     }
   }
 

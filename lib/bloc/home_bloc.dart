@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/util/data_manager.dart';
 import 'package:github_user_list/util/dialog.dart';
@@ -40,7 +41,7 @@ class HomeBloc {
     usersMutex.acquire();
 
     http.Response userResponses = await DataManager().httpClient.get(
-          "https://api.github.com/users?since=$since&per_page=$perPage",
+          Strings.HTTP.apiGithubUsers(since, perPage),
         );
 
     String statusLog = "since: $since, perPage: $perPage\n"
@@ -49,13 +50,13 @@ class HomeBloc {
 
     if (userResponses.statusCode == HttpStatus.forbidden) {
       AppDialog(context).showConfirmDialog(
-          "API rate limit exceeded: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+          "${Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_SHORT}: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
       return;
     } else if (userResponses.statusCode != HttpStatus.ok) {
       String logString = 'userResponses: ${userResponses.body}';
       Logger().i(logString);
       AppDialog(context).showConfirmDialog(
-          "Network communication error occurred: ${userResponses.statusCode}");
+          "${Strings.HTTP.DIALOG_ERROR_NETWORK_SHORT}: ${userResponses.statusCode}");
       return;
     }
     List<User> newUsers = [];

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/util/http_decoder.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,7 @@ class DataManager {
       {@required String username, @required String password}) async {
     _basicAuthClient = http_auth.BasicAuthClient(username, password);
     http.Response userResponse =
-        await _basicAuthClient.get("https://api.github.com/user");
+        await _basicAuthClient.get(Strings.HTTP.API_GITHUB_LOGGED_IN_USER);
     if (userResponse.statusCode == HttpStatus.ok) {
       _loginUser = User.fromJson(HttpDecoder.utf8Response(userResponse));
       String logString = "Login Success! : $_loginUser";

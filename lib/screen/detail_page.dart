@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/detail/profile.dart';
 import 'package:github_user_list/screen/detail/repo_list.dart';
@@ -28,14 +29,14 @@ class DetailPage extends StatelessWidget {
                 ? [
                     MaterialButton(
                       child: Text(
-                        "Logout",
+                        Strings.Global.LOGOUT,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
                       ),
                       onPressed: () => AppDialog(context)
-                          .showYesNoDialog('Are you sure you want to log out?',
+                          .showYesNoDialog(Strings.DetailPage.DIALOG_MSG_LOGOUT,
                               onConfirm: () async {
                         await DataManager().logout();
                         Navigator.pop(context);

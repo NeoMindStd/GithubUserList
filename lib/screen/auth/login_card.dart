@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/auth_bloc.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/screen/auth/center_card.dart';
 
 class LoginCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class LoginCard extends StatelessWidget {
 
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
-        labelText: "username",
+        labelText: Strings.Global.USERNAME,
         suffixIcon: IconButton(
           icon: Icon(Icons.clear),
           onPressed: usernameController.clear,
@@ -28,7 +29,7 @@ class LoginCard extends StatelessWidget {
       stream: _authBloc.isObscureTextStream,
       builder: (context, snapshot) => TextFormField(
         decoration: InputDecoration(
-          labelText: "password",
+          labelText: Strings.Global.PASSWORD,
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
             mainAxisSize: MainAxisSize.min, // added line
@@ -60,7 +61,7 @@ class LoginCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Input",
+                  Strings.AuthPage.CARD_TITLE,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28,
@@ -84,7 +85,7 @@ class LoginCard extends StatelessWidget {
                   ),
                   FlatButton(
                     child: Text(
-                      "Login",
+                      Strings.Global.LOGIN,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     color: Theme.of(context).accentColor,

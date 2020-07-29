@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/auth_bloc.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
 import 'package:github_user_list/bloc/home_bloc.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/auth_page.dart';
 import 'package:github_user_list/screen/detail_page.dart';
@@ -36,13 +37,13 @@ class HomePage extends StatelessWidget {
                         create: (BuildContext context) =>
                             DetailBloc(context, DataManager().loginUser),
                         child: DetailPage(
-                          title: 'My Profile',
+                          title: Strings.DetailPage.PAGE_TITLE_LOGGED_IN_USER,
                           isMyProfile: true,
                         ),
                       )
                     : Provider(
                         create: (BuildContext context) => AuthBloc(context),
-                        child: AuthPage(title: 'Github Authorization'),
+                        child: AuthPage(title: Strings.AuthPage.PAGE_TITLE),
                       ),
               ),
             ),
@@ -73,7 +74,7 @@ class HomePage extends StatelessWidget {
                             create: (BuildContext context) =>
                                 DetailBloc(context, user),
                             child: DetailPage(
-                              title: "Details",
+                              title: Strings.DetailPage.PAGE_TITLE_NORMAL,
                             ),
                           ),
                         )),

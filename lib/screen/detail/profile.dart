@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/user.dart';
 import 'package:github_user_list/screen/web_view_page.dart';
 
@@ -38,25 +39,27 @@ class Profile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 2),
                         ),
-                        Text("${_user.followers.length} followers"),
+                        Text(
+                            "${_user.followers.length} ${Strings.DetailPage.FOLLOWERS}"),
                       ],
                     ),
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => WebViewPage(
-                                "${_user.login}'s followers",
-                                'https://github.com/${_user.login}?tab=followers'))),
+                                "${_user.login}'s ${Strings.DetailPage.FOLLOWERS}",
+                                Strings.HTTP.githubTapFollowers(_user.login)))),
                   ),
                   Text(" · "),
                   InkWell(
-                    child: Text("${_user.followings.length} following"),
+                    child: Text(
+                        "${_user.followings.length} ${Strings.DetailPage.FOLLOWING}"),
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => WebViewPage(
-                                "${_user.login}'s following",
-                                'https://github.com/${_user.login}?tab=following'))),
+                                "${_user.login}'s ${Strings.DetailPage.FOLLOWING}",
+                                Strings.HTTP.githubTapFollowing(_user.login)))),
                   ),
                   Text(" · "),
                   InkWell(
@@ -73,8 +76,8 @@ class Profile extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => WebViewPage(
-                                "${_user.login}'s stars",
-                                'https://github.com/${_user.login}?tab=stars'))),
+                                "${_user.login}'s ${Strings.DetailPage.STARS}",
+                                Strings.HTTP.githubTapStars(_user.login)))),
                   ),
                 ],
               ),

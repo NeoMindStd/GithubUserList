@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:github_user_list/constant/nos.dart' as Nos;
+import 'package:github_user_list/constant/strings.dart' as Strings;
 import 'package:github_user_list/data/repository.dart';
 
 class User {
@@ -31,8 +32,8 @@ class User {
         followings = [],
         stars = [],
         repositories = [],
-        followingUrl = "https://api.github.com/users/$login/following",
-        starredUrl = "https://api.github.com/users/$login/starred";
+        followingUrl = Strings.HTTP.apiGithubFollowing(login),
+        starredUrl = Strings.HTTP.apiGithubStarred(login);
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
