@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:github_user_list/bloc/detail_bloc.dart';
 import 'package:github_user_list/bloc/home_bloc.dart';
@@ -11,7 +12,7 @@ class UserList extends StatelessWidget {
   final double scrollThreshold;
   final HomeBloc _homeBloc;
 
-  UserList(this._homeBloc, {this.scrollThreshold = 200.0});
+  UserList(this._homeBloc, {this.scrollThreshold = 300.0});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class UserList extends StatelessWidget {
     return SingleChildScrollView(
       controller: _scrollController,
       scrollDirection: Axis.vertical,
+      physics: const AlwaysScrollableScrollPhysics(),
       child: StreamBuilder<List<User>>(
           initialData: _homeBloc.users,
           stream: _homeBloc.usersStream,
@@ -33,7 +35,10 @@ class UserList extends StatelessWidget {
                 User user = users[index];
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(user.avatarUrl),
+                    backgroundImage: CachedNetworkImageProvider(
+                      user.avatarUrl,
+                      scale: 16,
+                    ),
                   ),
                   title: Text(user.login),
                   onTap: () => Navigator.push(
