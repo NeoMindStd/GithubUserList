@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => Provider(
                       create: (BuildContext context) =>
-                          DetailBloc(context, DataManager().loginUser),
+                          DetailBloc(DataManager().loginUser, context: context),
                       child: DetailPage(
                         title: Strings.DetailPage.PAGE_TITLE_LOGGED_IN_USER,
                         isMyProfile: true,

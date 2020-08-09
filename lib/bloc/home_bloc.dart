@@ -32,7 +32,7 @@ class HomeBloc {
   //////////////////////////////////////////////////
   ///               Methods
   //////////////////////////////////////////////////
-  HomeBloc(this.context)
+  HomeBloc({this.context})
       : users = [],
         usersMutex = Mutex();
 
@@ -50,14 +50,18 @@ class HomeBloc {
       Logger().i(statusLog);
 
       if (userResponses.statusCode == HttpStatus.forbidden) {
-        AppDialog(context).showConfirmDialog(
-            "${Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_SHORT}: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+        if (context != null) {
+          AppDialog(context).showConfirmDialog(
+              "${Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_SHORT}: ${userResponses.statusCode}\n\n${HttpDecoder.utf8Response(userResponses)['message']}");
+        }
         return;
       } else if (userResponses.statusCode != HttpStatus.ok) {
         String logString = 'userResponses: ${userResponses.body}';
         Logger().i(logString);
-        AppDialog(context).showConfirmDialog(
-            "${Strings.HTTP.DIALOG_ERROR_NETWORK_SHORT}: ${userResponses.statusCode}");
+        if (context != null) {
+          AppDialog(context).showConfirmDialog(
+              "${Strings.HTTP.DIALOG_ERROR_NETWORK_SHORT}: ${userResponses.statusCode}");
+        }
         return;
       }
       List<User> newUsers = [];
