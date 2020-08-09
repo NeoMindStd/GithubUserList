@@ -33,7 +33,7 @@ class DetailBloc {
   //////////////////////////////////////////////////
   ///               Methods
   //////////////////////////////////////////////////
-  DetailBloc(this.context, this.user);
+  DetailBloc(this.user, {this.context});
 
   getUserDetailInfo() async {
     ReferenceWrapper<http.Response> followerResponses = ReferenceWrapper();
@@ -60,8 +60,10 @@ class DetailBloc {
           followingResponses.obj.statusCode == HttpStatus.forbidden ||
           starResponses.obj.statusCode == HttpStatus.forbidden ||
           repoResponses.obj.statusCode == HttpStatus.forbidden) {
-        AppDialog(context)
-            .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_LONG);
+        if (context != null) {
+          AppDialog(context)
+              .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_API_RATE_LIMIT_LONG);
+        }
       } else if (followerResponses.obj.statusCode != HttpStatus.ok ||
           followingResponses.obj.statusCode != HttpStatus.ok ||
           starResponses.obj.statusCode != HttpStatus.ok ||
@@ -71,8 +73,10 @@ class DetailBloc {
             'starResponses: ${starResponses.obj.body}\n'
             'repoResponses: ${repoResponses.obj.body}\n';
         Logger().i(logString);
-        AppDialog(context)
-            .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_NETWORK_LONG);
+        if (context != null) {
+          AppDialog(context)
+              .showConfirmDialog(Strings.HTTP.DIALOG_ERROR_NETWORK_LONG);
+        }
       }
     });
   }

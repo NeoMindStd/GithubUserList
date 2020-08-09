@@ -19,7 +19,7 @@ class GithubUserListApp extends StatelessWidget {
       ),
       home: SafeArea(
         child: Provider(
-          create: (BuildContext context) => HomeBloc(context),
+          create: (BuildContext context) => HomeBloc(context: context),
           child: HomePage(title: Strings.HomePage.PAGE_TITLE),
           dispose: (context, HomeBloc _homeBloc) => _homeBloc.dispose(),
         ),

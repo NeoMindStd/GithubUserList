@@ -45,7 +45,7 @@ class UserList extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => Provider(
                           create: (BuildContext context) =>
-                              DetailBloc(context, user),
+                              DetailBloc(user, context: context),
                           child: DetailPage(
                             title: Strings.DetailPage.PAGE_TITLE_NORMAL,
                           ),
